@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Enjoy Netflix
+{% endblock title %}
+
+{% block others %} 
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>    
+{% endblock others %}
+
+{% block content %}
+
+{% include 'partials/nav.html' %}
+    <main class='bg-primary_black min-h-screen w-full'>
+        <section class="h-screen relative bg-no-repeat pb-8 pl-6 flex items-end bg-cover" 
+        style="background-image:url('{% static 'movie.webp' %}');">
+            <div>
+                <h2 class="text-6xl font-semibold text-white my-4">
+                    Vikings
+                </h2>
+                <p class=" w-11/12 md:w-5/12 font-medium text-white my-4">
+                    Vikings is a historical drama television series created and written by Michael Hirst for the History channel, a Canadian network. Filmed in Ireland, it premiered on March 3, 2013, in Canada.
+                </p>
+                <div class="flex my-4">
+                    
+                        <a href="{% url 'core:play' movie_id='0c518c23-3c98-4482-aae4-acbe6d5adead' %}">
+                            <button class="flex items-center bg-white py-2 px-5 rounded-md" style="color:black">
+                                <ion-icon name="play" class="text-2xl"></ion-icon>
+                                <span class="ml-3 font-medium">
+                                    Play
+                                </span>
+                            </button>
+                        </a>    
+                    <a href="{% url 'core:show_det' movie_id='0c518c23-3c98-4482-aae4-acbe6d5adead' %}">
+                        <button class="ml-4 text-white flex items-center bg-gray-500 bg-opacity-80 py-2 px-5 rounded-md">
+                            <ion-icon name="information-circle-outline" class="text-2xl" ></ion-icon>
+                            <span class="ml-3 font-medium">
+                                More Info
+                            </span>
+                        </button>
+                    </a>    
+                </div>
+            </div>
+        </section> 
+        <section class='bg-primary_black  min-h-screen flex justify-center py-10'>
+            <div class="p-8 w-10/12 relative" >
+                <h2 class="text-gray-400 text-2xl font-medium">
+                    Popular on Netflix
+                </h2>
+                <div class="flex justify-center  items-center min-w-full  movie_lis">
+                    
+                {% for movie in movies %}
+                    <a href="{% url 'core:show_det' movie_id=movie.uuid %}">
+                        <div class="flex-shrink-0  h-40 m-4  bg-blue-500 rounded-md cursor-pointer overflow-hidden w-40" >
+                            <img src="{{movie.flyer.url}}" class="w-full h-full " alt="">
+                        </div>
+
+                    </a>     
+                {% endfor %}
+
+                
+                </div>
+            </div>
+        </section>
+        
+    </main>
+{% endblock content %}    
